@@ -35,7 +35,7 @@ All built entirely with C++ without using any external libraries.
 ## TECHNOLOGIES USED
 
  - **C++17**
- - **Standard Template Library (STL)**: `vector`, `string`, `fstream`, `iostream`
+ - **Standard Template Library (STL)**: `map`, `vector`, `string`, `fstream`, `iostream`
  - **Object-Oriented Programming (OOP)**: Structured around `Game`, `Player`, `Entity`, `Item` classes
  - **FileIO**: Load maps from a `.txt` file
 
