@@ -7,7 +7,7 @@ Supports player movement, item pickup, monster AI, and turn-based combat
 
 ## OVERVIEW
 
-This is a *fuly functional console-based game engine* that allows developers to:
+This is a *fully functional console-based game engine* that allows developers to:
 
  - Create maps using `.txt` files
  - Place entities like monsters and items
