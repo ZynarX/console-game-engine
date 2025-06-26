@@ -1,7 +1,7 @@
 # CONSOLE GAME ENGINE
 
 A simple yet powerful console-based game engine written in C++
-Supports player movement, item pickup, monster AI, and turn-based combat
+Supports game creation, player movement, item pickup, monster AI, and turn-based combat
 
 -------------------------------------------------------------------------
 
