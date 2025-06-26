@@ -9,7 +9,7 @@ Supports player movement, item pickup, monster AI, and turn-based combat
 
 This is a *fully functional console-based game engine* that allows developers to:
 
- - Create maps using `.txt` files
+ - Create maps using `.vxe` file format
  - Place entities like monsters and items
  - Implement player movement and interaction
  - Add inventory and combat systems
@@ -22,7 +22,8 @@ All built entirely with C++ without using any external libraries.
 
 | Feature | Description |
 |---------|-------------|
-| **Map System** | Loads ASCII maps from `.txt` files |
+| **Map System** | Loads ASCII maps from `.vxe` files |
+| **Game Creation** | Users can create their own games into a `.vxe` file |
 | **Player Movement** | WASD keys, bounds checking, wall collision |
 | **Monster A.I.** | Enemies move towards the player intelligently |
 | **Combat System** | Turn-based battle with HP tracking |
@@ -35,7 +36,7 @@ All built entirely with C++ without using any external libraries.
 ## TECHNOLOGIES USED
 
  - **C++17**
- - **Standard Template Library (STL)**: `map`, `vector`, `string`, `fstream`, `iostream`
+ - **Standard Template Library (STL)**: `vector`, `string`, `fstream`, `iostream`
  - **Object-Oriented Programming (OOP)**: Structured around `Game`, `Player`, `Entity`, `Item` classes
  - **FileIO**: Load maps from a `.txt` file
 
@@ -52,5 +53,5 @@ All built entirely with C++ without using any external libraries.
 
 To compile and run the app from project root:
 
-`g++ src/main.cpp include/Game.cpp include/Player.cpp include/Entity.cpp include/Item.cpp -o game`
-`./game`
+`g++ src/main.cpp src/Designer.cpp src/Compiler.cpp src/Game.cpp src/Player.cpp src/Entity.cpp src/Item.cpp -o engine`
+`./engine`
