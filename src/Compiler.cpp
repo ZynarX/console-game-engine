@@ -28,6 +28,8 @@ Compiler::Compiler(std::string Filepath)
     this->RESERVED_KEYWORDS.push_back("$/EOPITEI/$");
     this->RESERVED_KEYWORDS.push_back("$/EOEITIC/$");
     this->RESERVED_KEYWORDS.push_back("$/EOEITII/$");
+    this->RESERVED_KEYWORDS.push_back("$/EOIITTC/$");
+    this->RESERVED_KEYWORDS.push_back("$/EOIITTI/$");
     this->RESERVED_KEYWORDS.push_back("$/EOMDAI/$");
 
     this->IS_PLAYER_X_SET = false;
@@ -35,9 +37,11 @@ Compiler::Compiler(std::string Filepath)
 
     this->NUM_OF_ENTITIES = 0;
     this->NUM_OF_ITEMS = 0;
+    this->NUM_OF_TRAPS = 0;
 
     this->CURRENT_ENTITY = 0;
     this->CURRENT_ITEM = 0;
+    this->CURRENT_TRAP = 0;
 }
 
 std::vector<std::string> Compiler::get_pos(std::string line, char split)
@@ -69,6 +73,10 @@ std::vector<std::string> Compiler::Compile()
     this->MAP.clear();
     this->CURRENT_ENTITIES.clear();
     this->CURRENT_ITEMS.clear();
+    this->CURRENT_TRAPS.clear();
+    this->CURRENT_ENTITY = 0;
+    this->CURRENT_ITEM = 0;
+    this->CURRENT_TRAP = 0;
     
     std::ifstream fileContent;
     fileContent.open(this->FILE_PATH);
@@ -127,9 +135,19 @@ std::vector<std::string> Compiler::Compile()
                             mode = 5;
                             break;
                         }
-                        else if(reserved_keyword == "$/EOMDAI/$")
+                        else if(reserved_keyword == "$/EOIITTC/$")
                         {
                             mode = 6;
+                            break;
+                        }
+                        else if(reserved_keyword == "$/EOIITTI/$")
+                        {
+                            mode = 7;
+                            break;
+                        }
+                        else if(reserved_keyword == "$/EOMDAI/$")
+                        {
+                            mode = 8;
                             break;
                         }
                     }
@@ -228,10 +246,43 @@ std::vector<std::string> Compiler::Compile()
                             }
                         }
                     }
+                    else if(mode == 6)
+                    {
+                        try
+                        {
+                            this->NUM_OF_TRAPS = std::stoi(FILE_CONTENT[i]);
+                        }
+                        catch(const std::exception& e)
+                        {
+                            std::cerr << e.what() << '\n';
+                        }
+                        
+                    }
+                    else if(mode == 7)
+                    {
+                        if(this->NUM_OF_TRAPS > 0)
+                        {
+                            if(this->CURRENT_TRAP < this->NUM_OF_TRAPS)
+                            {
+                                try
+                                {
+                                    std::vector<std::string> NameXYPair = this->get_pos(FILE_CONTENT[i], ',');
+
+                                    this->CURRENT_TRAPS.push_back({NameXYPair[0], NameXYPair[1], NameXYPair[2]});
+                                    this->CURRENT_TRAP++;
+                                }
+                                catch(const std::exception& e)
+                                {
+                                    std::cerr << e.what() << '\n';
+                                }
+                                
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    if(mode == 6)
+                    if(mode == 8)
                     {
                         break;
                     }
@@ -262,4 +313,9 @@ std::vector<std::vector<std::string>> Compiler::get_entities()
 std::vector<std::vector<std::string>> Compiler::get_items()
 {
     return this->CURRENT_ITEMS;
+}
+
+std::vector<std::vector<std::string>> Compiler::get_traps()
+{
+    return this->CURRENT_TRAPS;
 }
