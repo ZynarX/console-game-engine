@@ -9,7 +9,7 @@ Supports game creation, player movement, item pickup, monster AI, and turn-based
 
 This is a *fully functional console-based game engine* that allows users to:
 
- - Create maps using `.vxe` file format
+ - Create maps using `.vxe` file extension and format
  - Place entities like monsters, items and traps
  - Implement player movement and interaction
  - Add inventory and combat systems
