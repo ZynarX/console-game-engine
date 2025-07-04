@@ -29,7 +29,7 @@ All built entirely with C++ without using any external libraries.
 | **Combat System** | Turn-based battle with HP tracking |
 | **Item Pickup** | Collect items and track them in inventory |
 | **Inventory System** | Shows collected items (e.g. "Bread x2", "Sword x1") |
-| **Collision Detection** | Detects when the player hits walls, items, or enemies |
+| **Collision Detection** | Detects when the player hits walls, items, enemies, or traps |
 
 -------------------------------------------------------------------------
 
