@@ -8,18 +8,21 @@
 #include "../include/Entity.hpp"
 #include "../include/Item.hpp"
 
-Game::Game(std::string *filename, std::vector<std::string> *filepath, Player *player, std::vector<Entity> *entities, std::vector<Item> *items, bool combat, bool collide, bool end) : currentPlayer(player->get_name(), player->get_xposition(), player->get_yposition())
+Game::Game(std::string *filename, std::vector<std::string> *filepath, Player *player, std::vector<Entity> *entities, std::vector<Item> *items, std::vector<Trap> *traps, bool combat, bool collide, bool end) : currentPlayer(player->get_name(), player->get_xposition(), player->get_yposition())
 {
     for(Entity entity : *entities)
     {
         this->currentEntities.push_back(entity);
-        this->currentEntitiesAmount++;
     }
 
     for(Item item : *items)
     {
         this->currentItems.push_back(item);
-        this->currentItemsAmount++;
+    }
+
+    for(Trap trap : *traps)
+    {
+        this->currentTraps.push_back(trap);
     }
 
     this->map_lines = 0;
@@ -102,6 +105,14 @@ void Game::render()
                 }
             }
 
+            for(Trap trap : this->currentTraps)
+            {
+                if(trap.get_xposition() == x && trap.get_yposition() == y)
+                {
+                    temp_line[x] = trap.get_symbol();
+                }
+            }
+
             if(currentPlayer.get_xposition() == x && currentPlayer.get_yposition() == y)
             {
                 temp_line[x] = currentPlayer.get_symbol();
@@ -130,8 +141,6 @@ void Game::render()
 char Game::process_input()
 {
     char input;
-    std::cin.clear();
-    std::cin.ignore();
     std::cout << "Click any key (Q to quit): ";
     std::cin >> input;
 
@@ -303,6 +312,28 @@ void Game::check_collision()
         }
     }
 
+    for(Trap &trap : this->currentTraps)
+    {
+        if(this->currentPlayer.get_xposition() == trap.get_xposition() && this->currentPlayer.get_yposition() == trap.get_yposition())
+        {
+            this->currentPlayer.take_damage(20);
+            
+            for(size_t i = 0; i < this->currentTraps.size(); i++)
+            {
+                if(trap.get_xposition() == this->currentTraps[i].get_xposition() && trap.get_yposition() == this->currentTraps[i].get_yposition())
+                {
+                    this->currentTraps.erase(this->currentTraps.begin() + i);
+                    break;
+                }
+            }
+
+            if(this->IS_END)
+            {
+                this->is_game_over();
+            }
+        }
+    }
+
     for(Item &item : this->currentItems)
     {
         if(this->currentPlayer.get_xposition() == item.get_xposition() && this->currentPlayer.get_yposition() == item.get_yposition())
@@ -321,7 +352,6 @@ void Game::check_collision()
                     this->currentItems.pop_back(); */
 
                     this->currentItems.erase(this->currentItems.begin() + i);
-                    currentItemsAmount--;
                     break;
                 }
             }
@@ -400,7 +430,7 @@ void Game::handle_combat(Entity *entity)
                 {
                     runResult = true;
                     char confirmation;
-                    std::cin.ignore();
+
                     std::cout << "Are you sure (y/n)?: ";
                     std::cin >> confirmation;
 
@@ -445,7 +475,6 @@ void Game::handle_combat(Entity *entity)
             if(currentEntities[i].get_id() == entity->get_id())
             {
                 this->currentEntities.erase(this->currentEntities.begin() + i);
-                currentEntitiesAmount--;
                 break;
             }
         }
