@@ -7,10 +7,10 @@ Supports game creation, player movement, item pickup, monster AI, and turn-based
 
 ## OVERVIEW
 
-This is a *fully functional console-based game engine* that allows developers to:
+This is a *fully functional console-based game engine* that allows users to:
 
  - Create maps using `.vxe` file format
- - Place entities like monsters and items
+ - Place entities like monsters, items and traps
  - Implement player movement and interaction
  - Add inventory and combat systems
 
@@ -37,8 +37,8 @@ All built entirely with C++ without using any external libraries.
 
  - **C++17**
  - **Standard Template Library (STL)**: `vector`, `string`, `fstream`, `iostream`
- - **Object-Oriented Programming (OOP)**: Structured around `Game`, `Player`, `Entity`, `Item` classes
- - **FileIO**: Load maps from a `.txt` file
+ - **Object-Oriented Programming (OOP)**: Structured around `Designer`, `Compiler`, `Game`, `Player`, `Entity`, `Item`, and `Trap` classes
+ - **FileIO**: Load maps from a `.vxe` file
 
 -------------------------------------------------------------------------
 
@@ -53,5 +53,5 @@ All built entirely with C++ without using any external libraries.
 
 To compile and run the app from project root:
 
-`g++ src/main.cpp src/Designer.cpp src/Compiler.cpp src/Game.cpp src/Player.cpp src/Entity.cpp src/Item.cpp -o engine`
+`g++ src/main.cpp src/Designer.cpp src/Compiler.cpp src/Game.cpp src/Player.cpp src/Entity.cpp src/Item.cpp src/Trap.cpp -o engine`
 `./engine`
