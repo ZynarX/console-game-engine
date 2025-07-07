@@ -1,6 +1,6 @@
 # CONSOLE GAME ENGINE
 
-A simple yet powerful console-based game engine written in C++
+A simple yet powerful console-based game engine written in C++. 
 Supports game creation, player movement, item pickup, monster AI, and turn-based combat
 
 -------------------------------------------------------------------------
